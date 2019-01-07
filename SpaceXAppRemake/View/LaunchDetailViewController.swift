@@ -12,8 +12,7 @@ class LaunchDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    updateViews()
     }
     
     var launch : Json_Base? {
@@ -22,18 +21,24 @@ class LaunchDetailViewController: UIViewController {
         }
     }
 
-    
     func updateViews(){
+        guard isViewLoaded else {return}
         
+        
+        
+        guard let launchReturn = launch else {return}
+        guard let rocketReturn = launch?.rocket else {return}
+        
+        missonName.text = "Mission Name : \(launchReturn.mission_name)"
+        rocketType.text = "Rocket Type : \(rocketReturn.rocket_type)"
+        launchDate.text = "Launch Date : \(launchReturn.launch_date_local)"
+        messageLabel.text = launchReturn.details
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+   
+//Properties
+    @IBOutlet weak var missonName: UILabel!
+    @IBOutlet weak var rocketType: UILabel!
+    @IBOutlet weak var launchDate: UILabel!
+    @IBOutlet weak var messageLabel: UITextView!
+    
 }
