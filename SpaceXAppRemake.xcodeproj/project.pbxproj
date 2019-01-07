@@ -17,6 +17,7 @@
 		B9FCD10321E31F1D009DF4BF /* LaunchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FCD10221E31F1D009DF4BF /* LaunchTableViewCell.swift */; };
 		B9FCD10621E32D1A009DF4BF /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FCD10521E32D1A009DF4BF /* Cache.swift */; };
 		B9FCD10821E32D30009DF4BF /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FCD10721E32D30009DF4BF /* Operation.swift */; };
+		B9FCD10A21E3322C009DF4BF /* FetchPhotoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FCD10921E3322C009DF4BF /* FetchPhotoOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		B9FCD10221E31F1D009DF4BF /* LaunchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchTableViewCell.swift; sourceTree = "<group>"; };
 		B9FCD10521E32D1A009DF4BF /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		B9FCD10721E32D30009DF4BF /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
+		B9FCD10921E3322C009DF4BF /* FetchPhotoOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPhotoOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 			children = (
 				B9FCD10521E32D1A009DF4BF /* Cache.swift */,
 				B9FCD10721E32D30009DF4BF /* Operation.swift */,
+				B9FCD10921E3322C009DF4BF /* FetchPhotoOperation.swift */,
 			);
 			path = "Cache&Operation";
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9FCD0FD21E2F516009DF4BF /* LaunchController.swift in Sources */,
+				B9FCD10A21E3322C009DF4BF /* FetchPhotoOperation.swift in Sources */,
 				B9FCD10821E32D30009DF4BF /* Operation.swift in Sources */,
 				B9FCD0F921E2E8CD009DF4BF /* Launch.swift in Sources */,
 				B9FCD0E221E2E815009DF4BF /* AppDelegate.swift in Sources */,
