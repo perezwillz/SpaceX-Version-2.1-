@@ -35,7 +35,7 @@ class LaunchController {
             
             for eachLaunch in responseMondel {
                 tempLaunches.append(eachLaunch)
-                print(eachLaunch.mission_name)
+              //  print(eachLaunch.mission_name)
             }
             self.launches = tempLaunches
             

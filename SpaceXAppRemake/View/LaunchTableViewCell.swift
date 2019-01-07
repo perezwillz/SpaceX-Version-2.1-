@@ -15,5 +15,6 @@ class LaunchTableViewCell: UITableViewCell {
     @IBOutlet weak var dateText: UILabel!
     @IBOutlet weak var messageText: UILabel!
     
- 
+    @IBOutlet weak var launchImageView: UIImageView!
+    
 }
