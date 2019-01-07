@@ -19,6 +19,7 @@ class LaunchTableViewController: UITableViewController {
             if sucess {
                 DispatchQueue.main.async {
                     print(self.launchController.launches.count)
+                    self.tableView.reloadData()
                 }}}}
 
     // MARK: - Table view data source
@@ -32,14 +33,19 @@ class LaunchTableViewController: UITableViewController {
 
    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! LaunchTableViewCell
+        
+        let launch = launchController.launches[indexPath.row]
+      cell.missionNameText.text = launch.mission_name
+        cell.dateText.text = launch.launch_date_local
+        cell.messageText.text = launch.details
+        
         return cell
     }
    
-
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150.0
+    }
 
     /*
     // MARK: - Navigation
