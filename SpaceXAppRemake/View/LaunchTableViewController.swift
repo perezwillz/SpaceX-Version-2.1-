@@ -24,25 +24,30 @@ class LaunchTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return launchController.launches.count
+        return launchController.sortedLaunches.count
     }
 
    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! LaunchTableViewCell
         
-        let launch = launchController.launches[indexPath.row]
-      cell.missionNameText.text = launch.mission_name
-        cell.dateText.text = launch.launch_date_local
-        cell.messageText.text = launch.details
-        cell.rocketNameText.text = launch.rocket?.rocket_name
-        cell.rocketTypeText.text = launch.rocket?.rocket_type
+        let launch = launchController.sortedLaunches[indexPath.row]
         
-        loadImage(forCell: cell, forItemAt: indexPath, json_base: launch)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        dateFormatter.locale = Locale.current
+  
+        let date =  dateFormatter.string(from: launch.launchDateLocal)
+            cell.missionNameText.text = launch.missionName
+       cell.dateText.text = date
+        cell.messageText.text = launch.details
+        cell.rocketNameText.text = launch.rocket.rocketName.rawValue
+        cell.rocketTypeText.text = launch.rocket.rocketType.rawValue
+        
+        loadImage(forCell: cell, forItemAt: indexPath, launch: launch)
         return cell
     }
    
@@ -51,20 +56,22 @@ class LaunchTableViewController: UITableViewController {
     }
 
     //function to lead images with operations
-    private func loadImage(forCell cell: LaunchTableViewCell, forItemAt indexPath: IndexPath, json_base: Json_Base ) {
+    private func loadImage(forCell cell: LaunchTableViewCell, forItemAt indexPath: IndexPath, launch: Launch ) {
         
-        if let image = cache[json_base.mission_name] {
+      
+        
+        if let image = cache[launch.missionName] {
             cell.launchImageView.image = image
             
         }
         else {
             //Operation1 : Get Photo
-            let op1 = FetchIconPhotoOperation(photoRef: json_base)
+            let op1 = FetchIconPhotoOperation(photoRef: launch)
           
             //Operation2 : SavePhoto
             let op2 = BlockOperation {
                 guard let image = op1.image else { return }
-                self.cache.cache(value: image, for: json_base.mission_name)
+                self.cache.cache(value: image, for: launch.missionName)
             }
             
             let op3 = BlockOperation {
@@ -79,7 +86,7 @@ class LaunchTableViewController: UITableViewController {
                     
                 }else {
                     //Soon as we get off the cell we cancel
-                    self.fetchRequests[json_base.mission_name]?.cancel()
+                    self.fetchRequests[launch.missionName]?.cancel()
                     
                 }
             }
@@ -89,7 +96,7 @@ class LaunchTableViewController: UITableViewController {
             photoFetchQueue.addOperations([op1, op2], waitUntilFinished: false)
             
             //fetchOperationtrigger
-            fetchRequests[json_base.mission_name] = op1
+            fetchRequests[launch.missionName] = op1
         }
          
     }
@@ -97,11 +104,7 @@ class LaunchTableViewController: UITableViewController {
     //ExternalProperties
      private var cache: Cache<String, UIImage> = Cache()
     private var photoFetchQueue = OperationQueue()
-    private var fetchRequests: [String : FetchIconPhotoOperation] = [:] {
-        didSet{
-            print("Start fetching Images")
-        }
-    }
+    private var fetchRequests: [String : FetchIconPhotoOperation] = [:] 
     
     
     // MARK: - Navigation

@@ -8,37 +8,119 @@
 
 import UIKit
 
-class LaunchDetailViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    updateViews()
+class LaunchDetailViewController: UIViewController , UITableViewDataSource, UITableViewDelegate {
+    
+    var payLoads : [Payload] = []
+    var links : [Links] = []
+    
+    //TableView
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return payLoads.count
     }
     
-    var launch : Json_Base? {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "payloadCell", for: indexPath) as! PayLoadTableViewCell
+        
+        let payLoad = payLoads[indexPath.row]
+        
+        cell.ID.text = payLoad.payloadID
+        cell.manufacturer.text = payLoad.manufacturer
+        cell.nationality.text = payLoad.nationality
+        cell.flckRCollectionView.reloadData()
+        return cell
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateViews()
+        loadPayloads()
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    var launch : Launch? {
         didSet {
             updateViews()
+            loadPayloads()
         }
     }
-
+    
     func updateViews(){
         guard isViewLoaded else {return}
-        
-        
         
         guard let launchReturn = launch else {return}
         guard let rocketReturn = launch?.rocket else {return}
         
-        missonName.text = "Mission Name : \(launchReturn.mission_name)"
-        rocketType.text = "Rocket Type : \(rocketReturn.rocket_type)"
-        launchDate.text = "Launch Date : \(launchReturn.launch_date_local)"
+    //Mark - DRY, calling dateFormatter twice, fix this
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        dateFormatter.locale = Locale.current
+        
+        let date =  dateFormatter.string(from: launch!.launchDateLocal)
+        
+        missonName.text = "Mission Name : \(launchReturn.missionName)"
+        rocketType.text = "Rocket Type : \(rocketReturn.rocketType)"
+      launchDate.text = "Date : \(date)"
         messageLabel.text = launchReturn.details
+        
     }
-   
-//Properties
+    
+    func loadPayloads(){
+        var tempPayLoad : [Payload] = []
+        for eachpayLoad in (launch?.rocket.secondStage.payloads)! {
+            tempPayLoad.append(eachpayLoad)
+        }
+     
+        self.payLoads = tempPayLoad
+      //  self.tableView.reloadData()
+    }
+    
+    
+    func loadLinks(){
+        var tempPayLoad : [Payload] = []
+        for eachpayLoad in (launch?.rocket.secondStage.payloads)! {
+            tempPayLoad.append(eachpayLoad)
+    }
+    }
+    //Properties
     @IBOutlet weak var missonName: UILabel!
     @IBOutlet weak var rocketType: UILabel!
     @IBOutlet weak var launchDate: UILabel!
     @IBOutlet weak var messageLabel: UITextView!
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    let fetchFlickerOP = FetchFilterOperation()
+}
+
+
+extension LaunchDetailViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return launch?.links.flickrImages.count ?? 5
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectioncell", for: indexPath) as! FlickRCollectionViewCell
+        
+        
+        if  let flickRURL = launch?.links.flickrImages[indexPath.row] {
+            fetchFlickerOP.fetchFilter(flickRString: flickRURL) { (sucess, image) in
+                if sucess {
+                    let image = image
+                    DispatchQueue.main.async {
+                       cell.flickrImage.image = image
+                    }
+                } 
+            }
+        } else {
+     print("This one aint got no flickR")
+            cell.flickrImage.image = UIImage(named: "spaceship")
+        return cell
+        }
+        
+   return cell
+}
 }

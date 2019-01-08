@@ -11,11 +11,11 @@ import UIKit
 
 class FetchIconPhotoOperation : ConcurrentOperation {
     
-    init(photoRef: Json_Base) {
-        self.json_Base = photoRef
+    init(photoRef: Launch) {
+        self.launch = photoRef
     }
     
-    var json_Base : Json_Base
+    var launch : Launch
     
     var image : UIImage?
     private var dataTask: URLSessionDataTask?
@@ -23,9 +23,8 @@ class FetchIconPhotoOperation : ConcurrentOperation {
     override func start() {
         state = .isExecuting
         
-        guard let url = URL(string: json_Base.links.mission_patch)     else { return }
+        guard let url = URL(string: launch.links.missionPatch!)     else { return }
         
-        print("This is the Image URL : - \(url)")
         dataTask = URLSession.shared.dataTask(with: url) { (data, _, error) in
             defer { self.state = .isFinished }
             if let error = error {
