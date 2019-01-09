@@ -38,11 +38,9 @@ class LaunchController {
             
             self.sortedLaunches = self.launches.filter({$0.launchDateLocal > date!})
             
-            print(date!)
-            
             self.sortedLaunches.sort(by: {$0.launchDateLocal < $1.launchDateLocal})
             
-            print(self.sortedLaunches.compactMap({$0.launchDateLocal}))
+           // print(self.sortedLaunches.compactMap({$0.launchDateLocal}))
             
             completion(true)
         }

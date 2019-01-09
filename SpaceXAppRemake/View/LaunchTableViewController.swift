@@ -115,7 +115,7 @@ class LaunchTableViewController: UITableViewController {
         if segue.identifier == "toDetailVC" {
             let detailVC = segue.destination as! LaunchDetailViewController
                 if let indexPath = tableView.indexPathForSelectedRow {
-                    let launch = launchController.launches[indexPath.row]
+                    let launch = launchController.sortedLaunches[indexPath.row]
                     detailVC.launch = launch
                 }
             }
