@@ -59,9 +59,9 @@ class LaunchDetailViewController: UIViewController , UITableViewDataSource, UITa
         
         let date =  dateFormatter.string(from: launch!.launchDateLocal)
         
-        missonName.text = "Mission Name : \(launchReturn.missionName)"
+        missonName.text = "Name : \(launchReturn.missionName)"
         rocketType.text = "Rocket Type : \(rocketReturn.rocketType)"
-      launchDate.text = "Date : \(date)"
+      launchDate.text = date
         messageLabel.text = launchReturn.details
         
     }

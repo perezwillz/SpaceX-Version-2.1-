@@ -57,10 +57,7 @@ class LaunchTableViewController: UITableViewController {
 
     //function to lead images with operations
     private func loadImage(forCell cell: LaunchTableViewCell, forItemAt indexPath: IndexPath, launch: Launch ) {
-        
-      
-        
-        if let image = cache[launch.missionName] {
+                if let image = cache[launch.missionName] {
             cell.launchImageView.image = image
             
         }
@@ -115,6 +112,7 @@ class LaunchTableViewController: UITableViewController {
         if segue.identifier == "toDetailVC" {
             let detailVC = segue.destination as! LaunchDetailViewController
                 if let indexPath = tableView.indexPathForSelectedRow {
+                 
                     let launch = launchController.sortedLaunches[indexPath.row]
                     detailVC.launch = launch
                 }
