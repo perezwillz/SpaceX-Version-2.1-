@@ -54,6 +54,19 @@ class LaunchTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150.0
     }
+    
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        //define initial state(before animation)
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 100, 0)
+        cell.layer.transform = rotationTransform
+        
+        //define the final state (after animation)
+        UIView.animate(withDuration: 1, animations: {
+            cell.layer.transform = CATransform3DIdentity })
+        
+    }
+
 
     //function to lead images with operations
     private func loadImage(forCell cell: LaunchTableViewCell, forItemAt indexPath: IndexPath, launch: Launch ) {
