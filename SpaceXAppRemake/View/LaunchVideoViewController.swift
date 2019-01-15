@@ -14,6 +14,7 @@ class LaunchViewController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        playVideo()
     }
  
     private func playVideo(){
