@@ -47,11 +47,11 @@ class LaunchDetailViewController: UIViewController , UITableViewDataSource, UITa
     
     func updateViews(){
         guard isViewLoaded else {return}
-        
+        print("Hello")
         guard let launchReturn = launch else {return}
         guard let rocketReturn = launch?.rocket else {return}
-        
-    //Mark - DRY, calling dateFormatter twice, fix this
+         print("Hello 2")
+        //Mark - DRY, calling dateFormatter twice, fix this
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
@@ -61,19 +61,15 @@ class LaunchDetailViewController: UIViewController , UITableViewDataSource, UITa
         
         missonName.text = "Name : \(launchReturn.missionName)"
         rocketType.text = "Rocket Type : \(rocketReturn.rocketType)"
-      launchDate.text = date
+        launchDate.text = date
         messageLabel.text = launchReturn.details
         
     }
     
     func loadPayloads(){
-        var tempPayLoad : [Payload] = []
-        for eachpayLoad in (launch?.rocket.secondStage.payloads)! {
-            tempPayLoad.append(eachpayLoad)
-        }
-     
-        self.payLoads = tempPayLoad
-      //  self.tableView.reloadData()
+ guard isViewLoaded else {return}
+        guard let launch = launch else {return}
+        self.payLoads = ((launch.rocket.secondStage.payloads.compactMap({$0})))
     }
     
     
@@ -81,7 +77,7 @@ class LaunchDetailViewController: UIViewController , UITableViewDataSource, UITa
         var tempPayLoad : [Payload] = []
         for eachpayLoad in (launch?.rocket.secondStage.payloads)! {
             tempPayLoad.append(eachpayLoad)
-    }
+        }
     }
     //Properties
     @IBOutlet weak var missonName: UILabel!
@@ -111,16 +107,29 @@ extension LaunchDetailViewController : UICollectionViewDataSource, UICollectionV
                 if sucess {
                     let image = image
                     DispatchQueue.main.async {
-                       cell.flickrImage.image = image
+                        cell.flickrImage.image = image
                     }
                 } 
             }
         } else {
-     print("This one aint got no flickR")
+            print("This one aint got no flickR")
             cell.flickrImage.image = UIImage(named: "spaceship")
-        return cell
+            return cell
         }
         
-   return cell
+        return cell
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "toVideo" {
+            let detailVC = segue.destination as! LaunchViewController
+
+            if let launch = launch {
+                detailVC.launch = launch
+            }
+        }
+    }
+    
 }
-}
+
+//toVideo

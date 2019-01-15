@@ -234,6 +234,7 @@
                                             <outlet property="flckRCollectionView" destination="mhu-Kx-hHi" id="hIY-ye-LbP"/>
                                             <outlet property="manufacturer" destination="gVv-nB-rct" id="wdp-e5-bem"/>
                                             <outlet property="nationality" destination="grI-B6-tDa" id="1jo-jK-0bF"/>
+                                            <segue destination="pxB-Ya-fux" kind="show" identifier="toVideo" id="8nU-XC-XKQ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -248,25 +249,25 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-5" translatesAutoresizingMaskIntoConstraints="NO" id="wWA-6C-rLd">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="wWA-6C-rLd">
                                 <rect key="frame" x="10" y="124" width="365" height="85"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uxq-SJ-Ylw">
-                                        <rect key="frame" x="0.0" y="0.0" width="365" height="31.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="365" height="28.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xm-PD-bKU">
-                                        <rect key="frame" x="0.0" y="26.5" width="365" height="32"/>
+                                        <rect key="frame" x="0.0" y="28.5" width="365" height="28"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VdN-kr-z78">
-                                        <rect key="frame" x="0.0" y="53.5" width="365" height="31.5"/>
+                                        <rect key="frame" x="0.0" y="56.5" width="365" height="28.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -303,6 +304,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RfU-GM-Z5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2592.8000000000002" y="169.56521739130437"/>
+        </scene>
+        <!--Launch Video-->
+        <scene sceneID="a9z-pM-P06">
+            <objects>
+                <viewController id="pxB-Ya-fux" customClass="LaunchViewController" customModule="SpaceXAppRemake" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="k9D-TT-vIF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BeR-tD-Mkb">
+                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="BeR-tD-Mkb" firstAttribute="top" secondItem="4zK-XZ-eZw" secondAttribute="top" id="QAt-rb-KCh"/>
+                            <constraint firstItem="BeR-tD-Mkb" firstAttribute="trailing" secondItem="4zK-XZ-eZw" secondAttribute="trailing" id="XTp-yf-TLg"/>
+                            <constraint firstItem="BeR-tD-Mkb" firstAttribute="leading" secondItem="4zK-XZ-eZw" secondAttribute="leading" id="YVA-q3-duW"/>
+                            <constraint firstItem="BeR-tD-Mkb" firstAttribute="bottom" secondItem="4zK-XZ-eZw" secondAttribute="bottom" id="cgO-bl-mvK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4zK-XZ-eZw"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Launch Video" id="TiN-0w-SLH"/>
+                    <connections>
+                        <outlet property="webView" destination="BeR-tD-Mkb" id="g6V-V4-qUA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WDT-pK-we2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3444" y="178.56071964017991"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cZ3-cR-hwE">
